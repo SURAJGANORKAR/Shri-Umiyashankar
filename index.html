@@ -4,405 +4,965 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shri Umiyashankar Narayanji High School and Junior College</title>
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* Custom font configuration */
         :root {
             font-family: 'Inter', sans-serif;
         }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
         /* Scroll smoothly between sections */
         html {
             scroll-behavior: smooth;
         }
+        
+        /* Dropdown Menu Styles */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none; 
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Hide images initially for the slideshow */
         .slide-item {
             transition: opacity 1s ease-in-out;
         }
+
+        /* View Switching Utility */
+        .page-view {
+            animation: fadeView 0.5s ease-out;
+        }
+        @keyframes fadeView {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
-    <!-- Navbar - White background for sharp contrast --><nav id="navbar" class="sticky top-0 z-50 bg-white shadow-lg border-b border-red-100">
+    <!-- Navbar -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-lg border-b border-red-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 
-                <!-- Logo/School Name - Now with your ImageKit URL --><a href="#" class="flex-shrink-0 flex items-center">
+                <!-- Logo -->
+                <a href="javascript:void(0)" onclick="switchView('home')" class="flex-shrink-0 flex items-center">
                     <img id="school-logo" 
                          src="https://ik.imagekit.io/shriumiyashankar/Logo.jpg" 
                          alt="Shri UNHS Logo" 
                          class="h-10 w-auto rounded-md shadow-md mr-2"
                          onerror="this.onerror=null; this.src='https://placehold.co/100x40/cc0000/ffffff?text=LOGO+ERR';">
-
-                    <!-- Keep the short name visible next to the logo on larger screens --><span class="font-extrabold text-xl text-red-700 tracking-tight hidden sm:inline-block">
+                    <span class="font-extrabold text-xl text-red-700 tracking-tight hidden sm:inline-block">
                         Shri UNHS & Jr. College
                     </span>
                 </a>
                 
-                <!-- Desktop Menu --><div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium">Home</a>
-                    <a href="#about" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium">About Us</a>
-                    <a href="#academics" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium">Academics</a>
-                    <a href="#admissions" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium">Admissions</a>
-                    <a href="#contact" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium">Contact</a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-5 items-center">
+                    <a href="javascript:void(0)" onclick="switchView('home')" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium text-sm lg:text-base">Home</a>
+                    
+                    <!-- About Us Dropdown -->
+                    <div class="relative dropdown group">
+                        <button class="text-gray-600 group-hover:text-blue-700 transition duration-300 font-medium flex items-center gap-1 focus:outline-none text-sm lg:text-base">
+                            About Us <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute left-0 mt-0 w-56 bg-white rounded-md shadow-xl py-2 border border-gray-100 z-50">
+                            <a href="javascript:void(0)" onclick="switchView('home', 'about')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700">About School</a>
+                            <a href="javascript:void(0)" onclick="switchView('society')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700">Our Education Society</a>
+                            <a href="javascript:void(0)" onclick="switchView('headmistress')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700">Headmistress's Desk</a>
+                        </div>
+                    </div>
+
+                    <a href="javascript:void(0)" onclick="switchView('staff')" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium text-sm lg:text-base">Staff</a>
+                    <a href="javascript:void(0)" onclick="switchView('home', 'academics')" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium text-sm lg:text-base">Academics</a>
+                    <a href="javascript:void(0)" onclick="switchView('alumni')" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium text-sm lg:text-base">Alumni</a>
+                    <a href="javascript:void(0)" onclick="switchView('home', 'admissions')" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium text-sm lg:text-base">Admissions</a>
+                    <a href="javascript:void(0)" onclick="switchView('home', 'contact')" class="text-gray-600 hover:text-blue-700 transition duration-300 font-medium text-sm lg:text-base">Contact</a>
                 </div>
 
-                <!-- Mobile Menu Button (Hamburger) --><button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-yellow-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden">
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-inner">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Home</a>
-                <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">About Us</a>
-                <a href="#academics" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Academics</a>
-                <a href="#admissions" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Admissions</a>
-                <a href="#contact" onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Contact</a>
+                <a href="javascript:void(0)" onclick="switchView('home'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 text-blue-800">Home</a>
+                
+                <div class="pl-3 border-l-4 border-yellow-200 ml-3">
+                    <div class="px-3 py-2 text-xs font-bold text-gray-400 uppercase">About Section</div>
+                    <a href="javascript:void(0)" onclick="switchView('home', 'about'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-red-600">School Profile</a>
+                    <a href="javascript:void(0)" onclick="switchView('society'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-red-600">Education Society</a>
+                    <a href="javascript:void(0)" onclick="switchView('headmistress'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-red-600">Headmistress Desk</a>
+                </div>
+
+                <a href="javascript:void(0)" onclick="switchView('staff'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Staff Directory</a>
+                <a href="javascript:void(0)" onclick="switchView('home', 'academics'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Academics</a>
+                <a href="javascript:void(0)" onclick="switchView('alumni'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Alumni</a>
+                <a href="javascript:void(0)" onclick="switchView('home', 'admissions'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Admissions</a>
+                <a href="javascript:void(0)" onclick="switchView('home', 'contact'); closeMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-yellow-100 hover:text-blue-800">Contact</a>
             </div>
         </div>
     </nav>
 
-    <main class="min-h-screen">
+    <main class="flex-grow">
         
-        <!-- 1. Hero/Home Section - Vibrant Blue Background --><section id="home" class="bg-blue-600 py-20 sm:py-28 lg:py-36 text-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                
-                <!-- NEW PRIMARY HEADING BLOCK: Full Name and Affiliation - LARGEST FONT --><div class="mb-8">
-                    <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold mb-1 text-yellow-300 leading-none">
-                        Shri Umiyashankar Narayanji High School & Junior College
-                    </h2>
-                    <p class="text-lg sm:text-xl font-semibold opacity-90">
-                        Run by Shri Nagpur Gujrati Mandal, Nagpur
-                    </p>
-                </div>
-                <!-- END NEW PRIMARY HEADING BLOCK --><!-- Motto/Tagline (Now slightly smaller) --><h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight opacity-90">
-                    Excellence in Education, Rooted in Values
-                </h1>
-                <p class="text-lg sm:text-xl font-light mb-8 max-w-3xl mx-auto opacity-90">
-                    Serving students from Primary (Grade 5) through Junior College (Grade 12) with a focus on holistic development.
-                </p>
-                <div class="space-y-4 sm:space-y-0 sm:space-x-6">
-                    <!-- Admissions Button - Bright Yellow Primary CTA --><a href="#admissions" class="inline-block bg-yellow-400 text-blue-900 font-extrabold py-3 px-8 rounded-full shadow-xl hover:bg-yellow-500 transition duration-300 transform hover:scale-105">
-                        Admissions Open
-                    </a>
-                    <!-- Contact Button - White Border with Red Hover --><a href="#contact" class="inline-block border-2 border-white text-white font-semibold py-3 px-8 rounded-full hover:bg-red-700 transition duration-300 transform hover:scale-105">
-                        Contact Us Today
-                    </a>
-                </div>
-                
-                <!-- Removed: Quick Announcement Banner was here. --></div>
-        </section>
-        
-        <!-- 1.5. Photo Gallery Slideshow --><section id="photo-gallery" class="py-12 bg-gray-100">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center text-blue-800 mb-8">Glimpses of Shri UNHS</h2>
-                
-                <div id="slider-container" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                    <!-- Slides Wrapper --><div id="slides-wrapper" class="relative">
-                        <!-- Initial image set in JS --><img id="current-slide" src="https://ik.imagekit.io/shriumiyashankar/1.jpg" alt="School Event Photo" class="w-full h-auto object-cover slide-item">
-                    </div>
-                    
-                    <!-- Caption/Text Overlay --><div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 p-4 text-white">
-                        <p id="slide-caption" class="text-base sm:text-lg font-semibold"></p>
-                    </div>
-
-                    <!-- Navigation Buttons --><button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-30 p-3 rounded-full text-white hover:bg-opacity-70 transition duration-300 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    </button>
-                    <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-30 p-3 rounded-full text-white hover:bg-opacity-70 transition duration-300 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. About Us Section --><section id="about" class="py-16 sm:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">About Shri Umiyashankar Narayanji</h2>
-                
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    
-                    <!-- Managed By --><div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition duration-300">
-                        <p class="text-xs text-gray-500 mb-1">Institution Managed By</p>
-                        <h3 class="text-xl font-semibold text-gray-900">Shri Nagpur Gujrati Mandal</h3>
-                        <p class="mt-2 text-sm text-gray-600">A commitment to community service and educational excellence.</p>
-                    </div>
-
-                    <!-- Head Mistress --><div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition duration-300">
-                        <p class="text-xs text-gray-500 mb-1">Head Mistress's Desk</p>
-                        <h3 class="text-xl font-semibold text-gray-900">Ku. S.K. Gupta</h3>
-                        <p class="mt-2 text-sm text-gray-600">Leading our dedicated staff and nurturing 1100 bright students.</p>
-                    </div>
-
-                    <!-- Core Stats --><div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition duration-300">
-                        <p class="text-xs text-gray-500 mb-1">Student Strength</p>
-                        <h3 class="text-xl font-semibold text-gray-900">1100+</h3>
-                        <p class="mt-2 text-sm text-gray-600">Diverse student body across Primary, Middle, High School, and Jr. College.</p>
-                    </div>
-                </div>
-
-                <!-- Institutional Data Grid - Light Yellow Background --><div class="mt-12 p-6 bg-yellow-50 rounded-xl shadow-inner">
-                    <h3 class="text-xl font-bold text-red-700 mb-4">Official Affiliation Details</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                        <div class="font-medium text-gray-800">SSC Index No.:</div>
-                        <div class="text-gray-600">06.01.028</div>
-                        <div class="font-medium text-gray-800">HSC No.:</div>
-                        <div class="text-gray-600">06.01.020</div>
-                        <div class="font-medium text-gray-800">UDISE No.:</div>
-                        <div class="text-gray-600">27091506102</div>
-                        <div class="font-medium text-gray-800">Governing Body:</div>
-                        <div class="text-gray-600">Shri Nagpur Gujrati Mandal</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Academics Section --><section id="academics" class="py-16 sm:py-24 bg-gray-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center text-red-700 mb-12">Our Academic Sections</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    <!-- Primary (Grade 5) - Bright Green Accent --><div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg border-b-4 border-green-500">
-                        <h3 class="text-2xl font-bold text-green-700 mb-2">Primary School</h3>
-                        <p class="text-sm font-semibold text-gray-700 mb-3">(Grade 5)</p>
-                        <p class="text-gray-600 text-sm">Foundational learning, critical thinking, and social development. Focus on core subjects and activity-based education.</p>
-                        <a href="#" class="mt-4 inline-block text-sm font-medium text-green-600 hover:text-green-800">View Curriculum &raquo;</a>
-                    </div>
-                    
-                    <!-- Middle (Grades 6-8) - Bright Yellow Accent --><div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg border-b-4 border-yellow-500">
-                        <h3 class="text-2xl font-bold text-yellow-700 mb-2">Middle School</h3>
-                        <p class="text-sm font-semibold text-gray-700 mb-3">(Grades 6 - 8)</p>
-                        <p class="text-gray-600 text-sm">Introduction to specialization, personality development, and preparation for rigorous high school academics.</p>
-                        <a href="#" class="mt-4 inline-block text-sm font-medium text-yellow-600 hover:text-yellow-800">View Time Table &raquo;</a>
-                    </div>
-                    
-                    <!-- High School (Grades 9-10) - Bright Red Accent --><div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg border-b-4 border-red-500">
-                        <h3 class="text-2xl font-bold text-red-700 mb-2">High School</h3>
-                        <p class="text-sm font-semibold text-gray-700 mb-3">(Grades 9 - 10)</p>
-                        <p class="text-gray-600 text-sm">SSC Board Exam preparation, career exposure, and enhanced focus on Science, Math, and Languages.</p>
-                        <a href="#" class="mt-4 inline-block text-sm font-medium text-red-600 hover:text-red-800">SSC Resources &raquo;</a>
-                    </div>
-                    
-                    <!-- Junior College (Grades 11-12) - Bright Blue Accent --><div class="bg-white p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg border-b-4 border-blue-500">
-                        <h3 class="text-2xl font-bold text-blue-700 mb-2">Junior College</h3>
-                        <p class="text-sm font-semibold text-gray-700 mb-3">(Grades 11 - 12)</p>
-                        <p class="text-gray-600 text-sm">HSC specialization in Science, Arts, and Commerce. Intensive preparation for university entrance exams.</p>
-                        <a href="#" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:text-blue-800">HSC Streams &raquo;</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Admissions Section --><section id="admissions" class="py-16 sm:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
-                    <div>
-                        <h2 class="text-3xl font-bold text-blue-800 mb-6">Start Your Journey with Us</h2>
-                        <p class="text-gray-600 mb-6">
-                            Admissions for the upcoming academic year are currently open for select grades (5th, 6th, 9th, and 11th). We invite prospective students and parents to review our procedure and schedule a visit.
+        <!-- ========================================== -->
+        <!-- VIEW: HOME (Original Landing Page)         -->
+        <!-- ========================================== -->
+        <div id="view-home" class="page-view">
+            <!-- Hero/Home Section -->
+            <section id="home" class="bg-blue-600 py-20 sm:py-28 lg:py-36 text-white relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    <div class="mb-8">
+                        <h2 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold mb-1 text-yellow-300 leading-none">
+                            Shri Umiyashankar Narayanji High School & Junior College
+                        </h2>
+                        <p class="text-lg sm:text-xl font-semibold opacity-90">
+                            Run by Shri Nagpur Gujrati Mandal, Nagpur
                         </p>
-                        <ul class="list-disc list-inside space-y-3 text-gray-700">
-                            <li><span class="font-semibold text-red-600">Step 1:</span> Submit an online inquiry form.</li>
-                            <li><span class="font-semibold text-red-600">Step 2:</span> Schedule an interactive session with the Head Mistress.</li>
-                            <li><span class="font-semibold text-red-600">Step 3:</span> Document verification and final enrollment confirmation.</li>
-                        </ul>
-                        <!-- Download Prospectus Button - Bright Red --><a href="#" class="mt-8 inline-block bg-red-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-red-700 transition duration-300">
-                            Download Prospectus
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight opacity-90">
+                        Excellence in Education, Rooted in Values
+                    </h1>
+                    <p class="text-lg sm:text-xl font-light mb-8 max-w-3xl mx-auto opacity-90">
+                        Serving students from Primary (Grade 5) through Junior College (Grade 12) with a focus on holistic development.
+                    </p>
+                    <div class="space-y-4 sm:space-y-0 sm:space-x-6">
+                        <a href="javascript:void(0)" onclick="switchView('home', 'admissions')" class="inline-block bg-yellow-400 text-blue-900 font-extrabold py-3 px-8 rounded-full shadow-xl hover:bg-yellow-500 transition duration-300 transform hover:scale-105">
+                            Admissions Open
+                        </a>
+                        <a href="javascript:void(0)" onclick="switchView('home', 'contact')" class="inline-block border-2 border-white text-white font-semibold py-3 px-8 rounded-full hover:bg-red-700 transition duration-300 transform hover:scale-105">
+                            Contact Us Today
                         </a>
                     </div>
+                </div>
+            </section>
+            
+            <!-- Photo Gallery Slideshow -->
+            <section id="photo-gallery" class="py-12 bg-gray-100">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-blue-800 mb-8">Glimpses of Shri UNHS</h2>
+                    <div id="slider-container" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
+                        <div id="slides-wrapper" class="relative">
+                            <img id="current-slide" src="https://ik.imagekit.io/shriumiyashankar/1.jpg" alt="School Event Photo" class="w-full h-auto object-cover slide-item">
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 p-4 text-white">
+                            <p id="slide-caption" class="text-base sm:text-lg font-semibold"></p>
+                        </div>
+                        <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-30 p-3 rounded-full text-white hover:bg-opacity-70 transition duration-300 focus:outline-none">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-30 p-3 rounded-full text-white hover:bg-opacity-70 transition duration-300 focus:outline-none">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Us Section (Summary) -->
+            <section id="about" class="py-16 sm:py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-blue-800 mb-12">About Shri Umiyashankar Narayanji</h2>
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <!-- Managed By -->
+                        <div onclick="switchView('society')" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition duration-300 cursor-pointer group">
+                            <p class="text-xs text-gray-500 mb-1">Institution Managed By</p>
+                            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-red-700">Shri Nagpur Gujrati Mandal</h3>
+                            <p class="mt-2 text-sm text-gray-600">A commitment to community service and educational excellence.</p>
+                            <span class="inline-block mt-4 text-xs font-bold text-blue-600 uppercase">Read History &rarr;</span>
+                        </div>
+                        <!-- Head Mistress -->
+                        <div onclick="switchView('headmistress')" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition duration-300 cursor-pointer group">
+                            <p class="text-xs text-gray-500 mb-1">Head Mistress's Desk</p>
+                            <h3 class="text-xl font-semibold text-gray-900 group-hover:text-red-700">Ku. S.K. Gupta</h3>
+                            <p class="mt-2 text-sm text-gray-600">Leading our dedicated staff and nurturing 1100 bright students.</p>
+                            <span class="inline-block mt-4 text-xs font-bold text-blue-600 uppercase">Read Message &rarr;</span>
+                        </div>
+                        <!-- Core Stats -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition duration-300">
+                            <p class="text-xs text-gray-500 mb-1">Student Strength</p>
+                            <h3 class="text-xl font-semibold text-gray-900">1100+</h3>
+                            <p class="mt-2 text-sm text-gray-600">Diverse student body across Primary, Middle, High School, and Jr. College.</p>
+                        </div>
+                    </div>
+                    <!-- Institutional Data Grid -->
+                    <div class="mt-12 p-6 bg-yellow-50 rounded-xl shadow-inner">
+                        <h3 class="text-xl font-bold text-red-700 mb-4">Official Affiliation Details</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                            <div class="font-medium text-gray-800">SSC Index No.:</div>
+                            <div class="text-gray-600">06.01.028</div>
+                            <div class="font-medium text-gray-800">HSC No.:</div>
+                            <div class="text-gray-600">06.01.020</div>
+                            <div class="font-medium text-gray-800">UDISE No.:</div>
+                            <div class="text-gray-600">27091506102</div>
+                            <div class="font-medium text-gray-800">Governing Body:</div>
+                            <div class="text-gray-600">Shri Nagpur Gujrati Mandal</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Academics Section -->
+            <section id="academics" class="py-16 sm:py-24 bg-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-red-700 mb-12">Our Academic Sections</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg border-b-4 border-green-500">
+                            <h3 class="text-2xl font-bold text-green-700 mb-2">Primary School</h3>
+                            <p class="text-sm font-semibold text-gray-700 mb-3">(Grade 5)</p>
+                            <p class="text-gray-600 text-sm">Foundational learning, critical thinking, and social development.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg border-b-4 border-yellow-500">
+                            <h3 class="text-2xl font-bold text-yellow-700 mb-2">Middle School</h3>
+                            <p class="text-sm font-semibold text-gray-700 mb-3">(Grades 6 - 8)</p>
+                            <p class="text-gray-600 text-sm">Introduction to specialization and personality development.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg border-b-4 border-red-500">
+                            <h3 class="text-2xl font-bold text-red-700 mb-2">High School</h3>
+                            <p class="text-sm font-semibold text-gray-700 mb-3">(Grades 9 - 10)</p>
+                            <p class="text-gray-600 text-sm">SSC Board Exam preparation, career exposure, and enhanced focus.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg border-b-4 border-blue-500">
+                            <h3 class="text-2xl font-bold text-blue-700 mb-2">Junior College</h3>
+                            <p class="text-sm font-semibold text-gray-700 mb-3">(Grades 11 - 12)</p>
+                            <p class="text-gray-600 text-sm">HSC specialization in Science, Arts, and Commerce.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admissions Section -->
+            <section id="admissions" class="py-16 sm:py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold text-blue-800 mb-6">Start Your Journey with Us</h2>
+                            <p class="text-gray-600 mb-6">
+                                Admissions for the upcoming academic year are currently open for select grades.
+                            </p>
+                            <ul class="list-disc list-inside space-y-3 text-gray-700">
+                                <li><span class="font-semibold text-red-600">Step 1:</span> Submit an online inquiry form.</li>
+                                <li><span class="font-semibold text-red-600">Step 2:</span> Schedule an interactive session.</li>
+                                <li><span class="font-semibold text-red-600">Step 3:</span> Document verification.</li>
+                            </ul>
+                            <a href="#" class="mt-8 inline-block bg-red-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-red-700 transition duration-300">
+                                Download Prospectus
+                            </a>
+                        </div>
+                        <div class="mt-10 lg:mt-0 bg-gray-50 p-6 rounded-xl shadow-2xl border border-gray-200">
+                            <h3 class="text-2xl font-bold text-blue-800 mb-4">Quick Inquiry</h3>
+                            <iframe aria-label='Admission Enquiry Form' frameborder="0" style="height:500px;width:100%;border:none;" src='https://forms.zohopublic.in/unhsssggm1/form/AdmissionEnquiryForm/formperma/IqSnmSemUq8hTjelFz099GKTRL0E9Jr8qI1K3ECy8_8'></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-16 sm:py-24 bg-blue-900 text-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center mb-12">Get In Touch</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="flex flex-col items-center text-center p-6 bg-blue-800 rounded-xl shadow-lg">
+                            <i class="fa-solid fa-location-dot text-yellow-300 text-3xl mb-3"></i>
+                            <h3 class="text-xl font-semibold mb-2">Our Location</h3>
+                            <p class="font-light">Rampeth, Quetta Colony,<br>Nagpur - 440008</p>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-6 bg-blue-800 rounded-xl shadow-lg">
+                            <i class="fa-solid fa-phone text-yellow-300 text-3xl mb-3"></i>
+                            <h3 class="text-xl font-semibold mb-2">Call Us</h3>
+                            <p class="text-lg font-bold">0712-2764537</p>
+                            <p class="text-sm opacity-75">General Inquiry Hours</p>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-6 bg-blue-800 rounded-xl shadow-lg">
+                            <i class="fa-solid fa-envelope text-yellow-300 text-3xl mb-3"></i>
+                            <h3 class="text-xl font-semibold mb-2">Email</h3>
+                            <p class="text-lg font-bold break-words">unhs.jrc@gmail.com</p>
+                            <p class="text-sm opacity-75">For official communication</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW: HEADMISTRESS (From head mistress.html) -->
+        <!-- ========================================== -->
+        <div id="view-headmistress" class="page-view hidden">
+            <!-- Header -->
+            <header class="relative pt-20 pb-16 bg-blue-900 overflow-hidden text-center">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+                <div class="max-w-7xl mx-auto px-4 relative z-10">
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 font-serif italic">From the Headmistress's Desk</h1>
+                    <div class="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+                    <p class="text-blue-200 mt-4 max-w-2xl mx-auto">Guiding our students towards a future of knowledge, humility, and success.</p>
+                </div>
+            </header>
+
+            <!-- HM Content -->
+            <section class="py-12 bg-white">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+                        <a href="javascript:void(0)" onclick="switchView('home')" class="hover:text-red-700"><i class="fa-solid fa-house"></i> Home</a>
+                        <span>/</span>
+                        <span class="text-gray-900 font-semibold">Headmistress's Desk</span>
+                    </div>
+
+                    <div class="relative bg-white border border-blue-100 rounded-2xl shadow-xl overflow-hidden">
+                        <div class="grid md:grid-cols-12">
+                            <!-- Sidebar Profile -->
+                            <div class="md:col-span-4 bg-blue-50 p-8 flex flex-col items-center text-center border-r border-blue-100">
+                                <div class="w-48 h-48 rounded-full border-4 border-white shadow-xl overflow-hidden mb-6 relative group">
+                                    <img src="https://placehold.co/300x300/e2e8f0/1e3a8a?text=HM+Photo" alt="Miss Santoshi Gupta" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                                </div>
+                                <h3 class="text-2xl font-serif font-bold text-gray-900 mb-1">Miss Santoshi Gupta</h3>
+                                <p class="text-red-600 text-xs font-bold uppercase tracking-widest mb-6">Head Mistress</p>
+                                <div class="w-full bg-white p-6 rounded-xl shadow-sm border border-blue-100 text-left mb-6">
+                                    <h5 class="font-bold text-blue-900 mb-3 border-b pb-2">Philosophy</h5>
+                                    <blockquote class="font-serif italic text-gray-600 leading-relaxed mb-2">"Vidya Dadati Vinayam"</blockquote>
+                                    <p class="text-gray-500 text-xs">(Knowledge gives humility)</p>
+                                </div>
+                                <!-- Added Contact Block -->
+                                <div class="w-full bg-blue-900 text-white p-6 rounded-xl shadow-md text-left">
+                                    <h5 class="font-bold text-yellow-400 mb-3 border-b border-blue-700 pb-2">Contact</h5>
+                                    <ul class="space-y-3 text-sm">
+                                        <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-blue-300"></i> 0712-2764537</li>
+                                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-blue-300"></i> unhs.jrc@gmail.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Main Text Area -->
+                            <div class="md:col-span-8 p-8 md:p-12">
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome to Shri UNHS</h2>
+                                <p class="text-gray-500 text-sm mb-8 italic">Est. 1905 under Shri Nagpur Gujarati Mandal</p>
+                                <div class="space-y-10">
+                                    <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-red-600">
+                                        <h4 class="flex items-center gap-2 text-xl font-bold text-gray-900 mb-3"><i class="fa-solid fa-feather text-red-600"></i> A Tradition of Excellence</h4>
+                                        <p class="text-gray-700 leading-relaxed">Lighting the lamp of knowledge in the darkness of ignorance is our ultimate duty. Since our inception, we have grown from a small seed into a massive banyan tree of education. We are proud to blend traditional values with modern education to create responsible citizens for the nation.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="flex items-center gap-2 text-xl font-bold text-gray-900 mb-4"><i class="fa-solid fa-child-reaching text-blue-600"></i> Focusing on Student Development</h4>
+                                        <div class="grid sm:grid-cols-2 gap-6">
+                                            <div class="p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition bg-white">
+                                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-3">
+                                                    <i class="fa-solid fa-hands-holding-circle"></i>
+                                                </div>
+                                                <h5 class="font-bold text-gray-900 mb-2">Holistic Growth</h5>
+                                                <p class="text-sm text-gray-600">We emphasize co-curricular activities alongside academics. From Yoga and sports to debates and essay writing, we ensure every student discovers their potential.</p>
+                                            </div>
+                                            <div class="p-5 rounded-xl border border-gray-100 hover:border-yellow-200 hover:shadow-lg transition bg-white">
+                                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 mb-3">
+                                                    <i class="fa-solid fa-trophy"></i>
+                                                </div>
+                                                <h5 class="font-bold text-gray-900 mb-2">Competitive Spirit</h5>
+                                                <p class="text-sm text-gray-600">Our students consistently rank high in District and State level sports. We take immense pride in our students who have participated in the Republic Day Parade in New Delhi.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Added Facilities List -->
+                                    <div class="grid sm:grid-cols-2 gap-8">
+                                        <div>
+                                            <h4 class="flex items-center gap-2 text-lg font-bold text-gray-900 mb-4">
+                                                <i class="fa-solid fa-building-columns text-green-600"></i> World-Class Facilities
+                                            </h4>
+                                            <ul class="space-y-3">
+                                                <li class="flex items-start gap-3 bg-white p-2 rounded shadow-sm border border-gray-100">
+                                                    <i class="fa-solid fa-video text-green-500 mt-1"></i>
+                                                    <span class="text-sm text-gray-700"><strong>E-Learning Auditorium:</strong> Modern space for digital learning.</span>
+                                                </li>
+                                                <li class="flex items-start gap-3 bg-white p-2 rounded shadow-sm border border-gray-100">
+                                                    <i class="fa-solid fa-flask text-green-500 mt-1"></i>
+                                                    <span class="text-sm text-gray-700"><strong>Advanced Labs:</strong> Physics, Chemistry, Biology, Electronics.</span>
+                                                </li>
+                                                <li class="flex items-start gap-3 bg-white p-2 rounded shadow-sm border border-gray-100">
+                                                    <i class="fa-solid fa-desktop text-green-500 mt-1"></i>
+                                                    <span class="text-sm text-gray-700"><strong>Computer Center:</strong> 25+ modern computers for digital literacy.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="flex items-center gap-2 text-lg font-bold text-gray-900 mb-4">
+                                                <i class="fa-solid fa-graduation-cap text-purple-600"></i> Academic Scope
+                                            </h4>
+                                            <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 h-full">
+                                                <div class="mb-4">
+                                                    <p class="font-bold text-blue-900 text-sm mb-1 uppercase tracking-wide">High School</p>
+                                                    <p class="text-sm text-gray-700">Classes 5th to 10th (English & Hindi Medium)</p>
+                                                </div>
+                                                <div>
+                                                    <p class="font-bold text-blue-900 text-sm mb-1 uppercase tracking-wide">Junior College</p>
+                                                    <p class="text-sm text-gray-700">Science & Electronics Streams</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="pt-8 border-t border-gray-100 flex flex-col items-end">
+                                        <p class="text-gray-800 font-medium italic">With best wishes for a bright future,</p>
+                                        <div class="mt-4 text-center">
+                                            <div class="text-2xl font-serif text-blue-900 font-bold">Miss Santoshi Gupta</div>
+                                            <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Head Mistress, Shri UNHS</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW: SOCIETY (From education society.html) -->
+        <!-- ========================================== -->
+        <div id="view-society" class="page-view hidden">
+             <!-- Header Section -->
+            <header class="pt-20 pb-16 bg-gradient-to-br from-blue-900 to-indigo-900 text-white relative overflow-hidden text-center">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div class="max-w-4xl mx-auto px-4 relative z-10">
+                    <span class="inline-block py-1 px-3 rounded-full bg-blue-800 text-blue-200 text-xs font-bold uppercase tracking-widest mb-4 border border-blue-700">Our Parent Body</span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">Shri Nagpur Gujarati Mandal</h1>
+                    <p class="text-lg text-blue-100 font-light max-w-2xl mx-auto">A crucial pillar of the region’s educational development since 1905.</p>
+                </div>
+            </header>
+
+            <!-- History Section -->
+            <section class="py-16 bg-white">
+                <div class="max-w-5xl mx-auto px-4">
+                    <div class="flex flex-col md:flex-row gap-12 items-start">
+                        <div class="md:w-1/3 sticky top-24">
+                            <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-600">
+                                <h3 class="text-red-800 font-bold text-lg mb-4">The Pioneers</h3>
+                                <ul class="space-y-3 text-sm text-gray-700">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-user-tie text-red-400"></i> Shri Rajaram Dixit</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-user-tie text-red-400"></i> Shri Soubhagyachand Kothari</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-user-tie text-red-400"></i> Shri Deojibhai Thawar</li>
+                                </ul>
+                                <div class="mt-6 pt-6 border-t border-red-200">
+                                    <p class="text-3xl font-bold text-red-900">1905</p>
+                                    <p class="text-xs uppercase font-bold text-red-700">Year Established</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6">A Century of Dedication</h2>
+                            <div class="prose prose-lg text-gray-600">
+                                <p class="mb-4">Since 1905, Shri Nagpur Gujarati Mandal has been a shining beacon of knowledge. The Mandal began its journey with the founding of <strong>‘Itwari Gujarati Shikshan Sanstha’</strong>. What started with just 28 pupils became a remarkable success, inspiring the Mandal to establish more schools over the next 100 years.</p>
+                                <p class="mb-4">Today, the Mandal imparts knowledge to over <strong>5,000 students</strong> across a variety of educational systems, including Hindi, Marathi, and English mediums. Despite facing its fair share of challenges and difficulties over the years, the Mandal has never wavered in its strive to provide the best possible education.</p>
+                                <p>What began as a single primary school has grown into an impressive educational empire, thanks to the leadership of the early members who set the standard for transparency and responsibility. Their magnificent work has earned the lasting trust of the community.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Institutions List -->
+            <section class="py-16 bg-slate-50 border-t border-slate-200">
+                <div class="max-w-6xl mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Institutions Run by the Mandal</h2>
+                        <div class="w-16 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+                    </div>
                     
-                    <!-- Placeholder Form --><div class="mt-10 lg:mt-0 bg-gray-50 p-8 rounded-xl shadow-2xl border border-gray-200">
-                        <h3 class="text-2xl font-bold text-blue-800 mb-4">Quick Inquiry</h3>
-                        <form onsubmit="return handleFormSubmit(event)">
-                            <div class="mb-4">
-                                <label for="inquiry-name" class="block text-sm font-medium text-gray-700">Parent/Guardian Name</label>
-                                <input type="text" id="inquiry-name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-red-500 focus:border-red-500">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <!-- Card 1 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-green-600 mt-1"><i class="fa-solid fa-school text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Shri Malak Itwari Gujarati Primary School</h3>
+                                <p class="text-sm text-gray-500">Itwari, Nagpur</p>
                             </div>
-                            <div class="mb-4">
-                                <label for="inquiry-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                                <input type="email" id="inquiry-email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-red-500 focus:border-red-500">
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-pink-600 mt-1"><i class="fa-solid fa-child-dress text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Shri Mahavir Chhabalbhai Gujarati Primary Kanya Shala</h3>
+                                <p class="text-sm text-gray-500">Itwari, Nagpur</p>
                             </div>
-                            <div class="mb-4">
-                                <label for="inquiry-grade" class="block text-sm font-medium text-gray-700">Grade Applying For</label>
-                                <select id="inquiry-grade" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-red-500 focus:border-red-500">
-                                    <option value="">Select Grade</option>
-                                    <option value="5">Grade 5 (Primary)</option>
-                                    <option value="6-8">Grades 6-8 (Middle School)</option>
-                                    <option value="9-10">Grades 9-10 (High School)</option>
-                                    <option value="11-12">Grades 11-12 (Junior College)</option>
-                                </select>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-purple-600 mt-1"><i class="fa-solid fa-graduation-cap text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Shri Pakwasa Gujarati Girls’ High School & Jr. College</h3>
+                                <p class="text-sm text-gray-500">Lakadganj, Nagpur</p>
                             </div>
-                            <!-- Submit Button - Bright Green --><button type="submit" class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
-                                Submit Inquiry
+                        </div>
+                        <!-- Card 4 (Current School Highlight) -->
+                        <div class="bg-blue-50 p-5 rounded-lg shadow-sm border border-blue-200 flex items-start gap-4 hover:shadow-md transition relative overflow-hidden">
+                            <div class="absolute right-0 top-0 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-bl">Current</div>
+                            <div class="text-blue-700 mt-1"><i class="fa-solid fa-building-columns text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-blue-900">Shri Umiyashankar Narayanji High School & Jr. College</h3>
+                                <p class="text-sm text-blue-600">Lakadganj, Nagpur</p>
+                            </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-indigo-600 mt-1"><i class="fa-solid fa-university text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">VMV Commerce, JMT Arts & JJP Science College</h3>
+                                <p class="text-sm text-gray-500">Wardhaman Nagar, Nagpur</p>
+                            </div>
+                        </div>
+                        <!-- Card 6 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-yellow-600 mt-1"><i class="fa-solid fa-shapes text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Smt. Chanchalben Narayanbhai Patel Shishu Vihar</h3>
+                                <p class="text-sm text-gray-500">Lakadganj, Nagpur</p>
+                            </div>
+                        </div>
+                        <!-- Card 7 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-teal-600 mt-1"><i class="fa-solid fa-book-open text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Shri. M.I.G. English Medium Primary School</h3>
+                                <p class="text-sm text-gray-500">Nagpur</p>
+                            </div>
+                        </div>
+                        <!-- Card 8 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-orange-600 mt-1"><i class="fa-solid fa-book-reader text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Shri Raojibhai Jhaverbhai English Medium Primary School</h3>
+                                <p class="text-sm text-gray-500">Lakadganj, Nagpur</p>
+                            </div>
+                        </div>
+                        <!-- Card 9 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-cyan-600 mt-1"><i class="fa-solid fa-laptop-code text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Sudha Sureshbhai Maniyar College of Computer & Management</h3>
+                                <p class="text-sm text-gray-500">Kalamna Market Road, Nagpur</p>
+                            </div>
+                        </div>
+                        <!-- Card 10 -->
+                        <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition">
+                            <div class="text-rose-600 mt-1"><i class="fa-solid fa-user-graduate text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Smt. Ushaben Chandrakant Thakar Womens’ College</h3>
+                                <p class="text-sm text-gray-500">Lakadganj, Nagpur</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Added Achievements Section -->
+            <section class="py-16 bg-white">
+                <div class="max-w-5xl mx-auto px-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Achievements & Recognition</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-8 rounded-2xl border border-yellow-100">
+                            <div class="text-yellow-600 text-3xl mb-4"><i class="fa-solid fa-award"></i></div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Central School Status</h3>
+                            <p class="text-gray-700 text-sm leading-relaxed">
+                                The Department of Education granted the prestigious status of a <strong>Central School</strong> to Shri Umiyashankar Narayanji High School, recognizing its role as a pivotal educational hub.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl border border-blue-100">
+                            <div class="text-blue-600 text-3xl mb-4"><i class="fa-solid fa-star"></i></div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">NAAC Accreditation</h3>
+                            <p class="text-gray-700 text-sm leading-relaxed">
+                                The National Assessment and Accreditation Council (NAAC) awarded <strong>B-Grade status</strong> to our college wing (VMV Commerce, JMT Arts, and JJP Science College) located in Wardhaman Nagar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-200 text-center">
+                        <p class="text-gray-600 italic">
+                            "The students of our institutions have consistently earned recognition for outstanding achievements in HSSC and University examinations, as well as representing their schools at district and state levels in athletics."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Added Legacy Section -->
+            <section class="py-16 bg-gray-900 text-gray-300 text-center">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h2 class="text-white text-2xl font-bold mb-6">A Legacy of Trust</h2>
+                    <p class="mb-8 leading-relaxed text-gray-400">
+                        It is with great pleasure that the Mandal can proudly state that in the past 100 years, our institutions have successfully educated and positively impacted thousands of students, teachers, parents, and citizens. The remarkable success of our alumni is a testament to the Mandal’s commitment to mass education, literacy, and overall well-being.
+                    </p>
+                    <div class="inline-block px-6 py-3 border border-gray-700 rounded-lg bg-gray-800">
+                        <p class="text-sm font-semibold text-gray-300">Celebrating over 100 years of excellence</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW: STAFF (From staff.html)              -->
+        <!-- ========================================== -->
+        <div id="view-staff" class="page-view hidden bg-slate-50">
+            <!-- Staff Header -->
+            <header class="pt-20 pb-12 bg-blue-900 text-white relative overflow-hidden text-center">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
+                <div class="max-w-7xl mx-auto px-4 relative z-10">
+                    <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Our Dedicated Team</h1>
+                    <p class="text-blue-200 text-lg max-w-2xl mx-auto">Meet the educators and staff members committed to shaping the future of our students.</p>
+                </div>
+            </header>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <!-- Filters Toolbar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-8 sticky top-20 z-30">
+                    <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                        <div class="relative w-full md:w-96">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                            </div>
+                            <input type="text" id="search-input" placeholder="Search by name, role..." class="block w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition">
+                        </div>
+                        <div class="flex gap-3 w-full md:w-auto">
+                            <select id="dept-filter" class="w-full md:w-64 px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 cursor-pointer">
+                                <option value="All">All Departments</option>
+                            </select>
+                            <button onclick="resetFilters()" class="px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-lg transition whitespace-nowrap" title="Reset Filters">
+                                <i class="fa-solid fa-rotate-right"></i>
                             </button>
-                            <div id="form-message" class="mt-3 text-center text-sm font-medium hidden"></div>
-                        </form>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-500 font-medium whitespace-nowrap mt-2">
+                        Showing <span id="count-display" class="font-bold text-gray-900">0</span> members
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- 5. Contact Us Section - Dark Blue Background --><section id="contact" class="py-16 sm:py-24 bg-blue-900 text-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center mb-12">Get In Touch</h2>
+                <!-- Staff Content Container -->
+                <div id="staff-container" class="space-y-12 min-h-[50vh]">
+                    <!-- Injected via JS -->
+                </div>
                 
-                <div class="grid md:grid-cols-3 gap-8">
-                    
-                    <!-- Address --><div class="flex flex-col items-center text-center p-6 bg-blue-800 rounded-xl shadow-lg">
-                        <svg class="w-8 h-8 mb-3 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <h3 class="text-xl font-semibold mb-2">Our Location</h3>
-                        <p class="font-light">Rampeth, Quetta Colony,</p>
-                        <p class="font-light">Nagpur - 440008</p>
+                <!-- No Results -->
+                <div id="no-results" class="hidden flex flex-col items-center justify-center py-20 text-center">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-gray-400 text-2xl">
+                        <i class="fa-solid fa-user-slash"></i>
                     </div>
-                    
-                    <!-- Phone --><div class="flex flex-col items-center text-center p-6 bg-blue-800 rounded-xl shadow-lg">
-                        <svg class="w-8 h-8 mb-3 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-3.28a1 1 0 01-.948-.684l-1.498-4.493a1 1 0 01.502-1.21l2.257-1.13a11.042 11.042 0 00-5.516-5.516l-1.13 2.257a1 1 0 01-1.21.502L5 8.28A2 2 0 013 7V5z"></path></svg>
-                        <h3 class="text-xl font-semibold mb-2">Call Us</h3>
-                        <p class="text-lg font-bold">0712-2764537</p>
-                        <p class="text-sm opacity-75">General Inquiry Hours</p>
-                    </div>
-
-                    <!-- Email --><div class="flex flex-col items-center text-center p-6 bg-blue-800 rounded-xl shadow-lg">
-                        <svg class="w-8 h-8 mb-3 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        <h3 class="text-xl font-semibold mb-2">Email</h3>
-                        <p class="text-lg font-bold break-words">unhs.jrc@gmail.com</p>
-                        <p class="text-sm opacity-75">For official communication</p>
-                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">No profiles found</h3>
+                    <button onclick="resetFilters()" class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition">Clear Filters</button>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW: ALUMNI (New Section)                 -->
+        <!-- ========================================== -->
+        <div id="view-alumni" class="page-view hidden">
+            <!-- Alumni Header -->
+            <header class="relative pt-20 pb-16 bg-indigo-900 text-white overflow-hidden text-center">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div class="max-w-7xl mx-auto px-4 relative z-10">
+                    <span class="inline-block py-1 px-3 rounded-full bg-indigo-800 text-indigo-200 text-xs font-bold uppercase tracking-widest mb-4 border border-indigo-700">Connect & Network</span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold mb-4 font-serif">Alumni Association</h1>
+                    <div class="w-24 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+                    <p class="text-indigo-200 mt-4 max-w-2xl mx-auto text-lg">Reconnecting Roots, Building Futures. Once a student, always a part of the family.</p>
+                </div>
+            </header>
+
+            <!-- Mission / About Alumni -->
+            <section class="py-12 bg-white">
+                <div class="max-w-5xl mx-auto px-4">
+                    <div class="bg-indigo-50 rounded-2xl p-8 border border-indigo-100 shadow-sm text-center">
+                        <h2 class="text-2xl font-bold text-indigo-900 mb-4">Our Mission</h2>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            The Shri UNHS Alumni Association aims to foster a lifelong bond between the institute and its alumni. We strive to create a platform for mentorship, networking, and giving back to the alma mater that shaped our foundations. Join us to reconnect with old friends and support the next generation of students.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Registration & Spotlight Grid -->
+            <section class="py-12 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        
+                        <!-- Registration Form -->
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-600">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                <i class="fa-solid fa-user-plus text-indigo-600"></i> Join the Network
+                            </h3>
+                            <iframe aria-label='Alumni Registration Form' frameborder="0" style="height:500px;width:99%;border:none;" src='https://forms.zohopublic.in/unhsssggm1/form/AlumniRegistrationForm/formperma/5xjoLm8LBtPDdtsztcfXum8JhlosB8fhisSxemw6ums'></iframe>
+                        </div>
+
+                        <!-- Notable Alumni Placeholder -->
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">Why Join?</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-3">
+                                        <div class="mt-1 bg-green-100 text-green-600 rounded-full p-1"><i class="fa-solid fa-check text-xs"></i></div>
+                                        <p class="text-sm text-gray-600"><strong>Networking Opportunities:</strong> Connect with alumni working in diverse fields across the globe.</p>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <div class="mt-1 bg-green-100 text-green-600 rounded-full p-1"><i class="fa-solid fa-check text-xs"></i></div>
+                                        <p class="text-sm text-gray-600"><strong>Mentorship:</strong> Guide current students or find a mentor for your own career growth.</p>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <div class="mt-1 bg-green-100 text-green-600 rounded-full p-1"><i class="fa-solid fa-check text-xs"></i></div>
+                                        <p class="text-sm text-gray-600"><strong>Reunions:</strong> Get invitations to annual alumni meets and special school events.</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-xl p-6 text-white shadow-lg">
+                                <h3 class="text-xl font-bold mb-2">Upcoming Event</h3>
+                                <div class="text-4xl font-bold text-yellow-300 mb-1">26</div>
+                                <div class="text-lg font-medium mb-4 uppercase tracking-wide">January 2026</div>
+                                <h4 class="text-lg font-bold mb-2">Grand Alumni Meet 2026</h4>
+                                <p class="text-blue-100 text-sm mb-4">Join us on Republic Day for a special gathering to honor our distinguished alumni.</p>
+                                <button onclick="alert('Event details will be emailed to registered members.')" class="bg-white text-blue-800 text-sm font-bold py-2 px-4 rounded hover:bg-gray-100 transition">View Details</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
 
     </main>
 
-    <!-- Footer - Dark Red Background for strong contrast --><footer class="bg-red-800 text-white py-6">
+    <!-- Footer - Shared across all views -->
+    <footer class="bg-red-800 text-white py-6 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
-            <p>&copy; 2024 Shri Umiyashankar Narayanji High School and Junior College. All rights reserved.</p>
+            <p>&copy; 2025 Shri Umiyashankar Narayanji High School and Junior College. All rights reserved.</p>
             <p class="mt-2 text-xs opacity-75">Managed by Shri Nagpur Gujrati Mandal.</p>
         </div>
     </footer>
 
-    <!-- 
-        ####################################################################
-        #  SLIDESHOW JAVASCRIPT 
-        ####################################################################
-    --><script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
+    <!-- SCRIPTS -->
+    <script>
+        // --- 1. Global View Switcher Logic ---
+        function switchView(viewId, sectionId = null) {
+            // Hide all views
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => v.classList.add('hidden'));
 
-            // --- Mobile Menu Logic ---
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+            // Show target view
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) {
+                target.classList.remove('hidden');
+            }
 
-            // --- Form Handling Logic ---
-            window.handleFormSubmit = function(event) {
-                event.preventDefault();
-                const formMessage = document.getElementById('form-message');
-                
-                // Simple placeholder logic for form success
-                formMessage.classList.remove('hidden', 'text-red-500');
-                formMessage.classList.add('text-green-500');
-                formMessage.textContent = '✅ Inquiry submitted successfully! We will contact you soon.';
-                
-                // Reset form after a delay
+            // Scroll Logic
+            if (sectionId) {
+                // If scrolling to a specific section on the home page
                 setTimeout(() => {
-                    event.target.reset();
-                    formMessage.classList.add('hidden');
-                }, 3000);
-                
-                return false; // Prevent actual page submission
+                    const section = document.getElementById(sectionId);
+                    if (section) section.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                // Otherwise scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+        }
 
-            // --- Slideshow Logic ---
-            const slides = [
-                // SLIDE 1: Investiture Ceremony (Updated)
-                {
-                    src: 'https://ik.imagekit.io/shriumiyashankar/1.jpg', 
-                    caption: 'Investiture Ceremony of Student Council', 
-                    color: 'cc0000'
-                },
-                // SLIDE 2: TRAFFIC AWARENESS
-                {
-                    src: 'https://ik.imagekit.io/shriumiyashankar/2.jpg', 
-                    caption: 'Traffic Awareness Activity by Hon. Agarkar Sir, ACP (Traffic) Nagpur City.', 
-                    color: '004d99'
-                },
-                // SLIDE 3: DRAWING COMPETITION 1
-                {
-                    src: 'https://ik.imagekit.io/shriumiyashankar/3.jpeg',
-                    caption: 'Inter-school Drawing Competition in remembrance of our founding member, Honorable Shri Shantilal Badani. Topic: Yoga for Health and Mental Peace.',
-                    color: 'ffcc00' 
-                },
-                // SLIDE 4: DRAWING COMPETITION 2
-                {
-                    src: 'https://ik.imagekit.io/shriumiyashankar/4.jpeg',
-                    caption: 'Inter-school Drawing Competition in remembrance of our founding member, Honorable Shri Shantilal Badani. Topic: Yoga for Health and Mental Peace.',
-                    color: '007bff'
-                }
-            ];
-            // ===================================================================
-            //
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
 
-            let currentSlideIndex = 0;
-            const slideImage = document.getElementById('current-slide');
-            const slideCaption = document.getElementById('slide-caption');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            let slideInterval;
-
-            function updateSlide() {
-                // Apply subtle fade effect by temporarily changing opacity before setting new source
-                slideImage.style.opacity = '0';
-                
-                setTimeout(() => {
-                    const slide = slides[currentSlideIndex];
-                    slideImage.src = slide.src;
-                    slideCaption.textContent = slide.caption;
-                    slideImage.alt = slide.caption;
-                    slideImage.onerror = function() {
-                        // Use a fallback image with the current slide's color
-                        this.src = `https://placehold.co/1200x500/${slide.color}/ffffff?text=Image+Load+Failed`;
-                    };
-                    slideImage.style.opacity = '1';
-                }, 500); // Wait for half a second fade-out before changing content
-            }
-
-            function nextSlide() {
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                updateSlide();
-            }
-
-            function prevSlide() {
-                currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
-                updateSlide();
-            }
-
-            function startAutoSlide() {
-                // Clear any existing interval to prevent overlap
-                if (slideInterval) clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-            }
-
-            // Event Listeners for manual navigation
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                startAutoSlide(); // Restart interval after manual interaction
-            });
-            
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                startAutoSlide(); // Restart interval after manual interaction
-            });
-
-            // Initialize the slideshow
-            updateSlide(); 
-            startAutoSlide();
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        // --- 2. Slideshow Logic (Home Page) ---
+        const slides = [
+            { src: 'https://ik.imagekit.io/shriumiyashankar/1.jpg', caption: 'Investiture Ceremony of Student Council', color: 'cc0000' },
+            { src: 'https://ik.imagekit.io/shriumiyashankar/2.jpg', caption: 'Traffic Awareness Activity by Hon. Agarkar Sir', color: '004d99' },
+            { src: 'https://ik.imagekit.io/shriumiyashankar/3.jpeg', caption: 'Inter-school Drawing Competition', color: 'ffcc00' },
+            { src: 'https://ik.imagekit.io/shriumiyashankar/4.jpeg', caption: 'Yoga for Health and Mental Peace', color: '007bff' }
+        ];
+
+        let currentSlideIndex = 0;
+        const slideImage = document.getElementById('current-slide');
+        const slideCaption = document.getElementById('slide-caption');
+        let slideInterval;
+
+        function updateSlide() {
+            if(!slideImage) return;
+            slideImage.style.opacity = '0';
+            setTimeout(() => {
+                const slide = slides[currentSlideIndex];
+                slideImage.src = slide.src;
+                slideCaption.textContent = slide.caption;
+                slideImage.onerror = function() { this.src = `https://placehold.co/1200x500/${slide.color}/ffffff?text=Image+Load+Failed`; };
+                slideImage.style.opacity = '1';
+            }, 500);
+        }
+
+        function nextSlide() { currentSlideIndex = (currentSlideIndex + 1) % slides.length; updateSlide(); }
+        function prevSlide() { currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length; updateSlide(); }
+
+        document.getElementById('next-btn').addEventListener('click', () => { nextSlide(); clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000); });
+        document.getElementById('prev-btn').addEventListener('click', () => { prevSlide(); clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000); });
+
+        // --- 3. Staff Directory Logic ---
+        const staffData = [
+            { name: "Santoshi Kanhaiyalal Gupta", role: "Principal", category: "Administration", dept: "Administration", subjects: "Mathematics, Science", gender: "F" },
+            { name: "Amrutlal Jivrajbhai Khetani", role: "Supervisor", category: "Administration", dept: "Administration", subjects: "History, Hindi", gender: "M" },
+            { name: "Seema Amol Lanjewar", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Biology, Science", gender: "F" },
+            { name: "Rina Satyam Kariya", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Chemistry, Science", gender: "F" },
+            { name: "Neeta Dilip Parwarkar", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Physics", gender: "F" },
+            { name: "Suraj Shreekant Ganorkar", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Science, English, Mathematics", gender: "M" },
+            { name: "Kavita Keyur Vyas", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Science", gender: "F" },
+            { name: "Rashmi Ramakant Pantawane", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Science, Geography", gender: "F" },
+            { name: "Shraddha Shekhar Shirpurkar", role: "Teacher", category: "Junior College Teachers", dept: "Mathematics", subjects: "Mathematics", gender: "F" },
+            { name: "Mona Vijay Jani", role: "Teacher", category: "Junior College Teachers", dept: "Science", subjects: "Science", gender: "F" },
+            { name: "Anshul Suresh Jichkar", role: "Teacher", category: "High School Teachers", dept: "Mathematics", subjects: "Mathematics", gender: "M" },
+            { name: "Leena Prasad Pande", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "Hindi, History", gender: "F" },
+            { name: "Ranjana Vijay Nimje", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "English, Hindi", gender: "F" },
+            { name: "Suhasini Yashwant Bhute", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "Hindi", gender: "F" },
+            { name: "Saroj Umesh Akare", role: "Teacher", category: "High School Teachers", dept: "Science", subjects: "Mathematics, Science", gender: "F" },
+            { name: "Vibha Girish Suba", role: "Teacher", category: "High School Teachers", dept: "Humanities", subjects: "Hindi, History", gender: "F" },
+            { name: "Smita Sanjay Meharkure", role: "Teacher", category: "High School Teachers", dept: "Science", subjects: "Mathematics, Science", gender: "F" },
+            { name: "Anuradha Girish Sule", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "English", gender: "F" },
+            { name: "Shubhangi Rajeshkumar Dave", role: "Teacher", category: "High School Teachers", dept: "General", subjects: "General", gender: "F" },
+            { name: "Rajni Pratap Chauhan", role: "Teacher", category: "High School Teachers", dept: "Science", subjects: "Science, English", gender: "F" },
+            { name: "Anjali Alpeshkumar Joshi", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "English, Social Studies", gender: "F" },
+            { name: "Belekar Kalpana Subhash", role: "Teacher", category: "High School Teachers", dept: "Humanities", subjects: "History, Social Studies", gender: "F" },
+            { name: "Bharati Pankaj Asatkar", role: "Teacher", category: "High School Teachers", dept: "Humanities", subjects: "Geography, Hindi", gender: "F" },
+            { name: "Rinakumari Indradeo Yadav", role: "Teacher", category: "High School Teachers", dept: "Humanities", subjects: "History, Geography", gender: "F" },
+            { name: "Shital Hemantroa Khedikar", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "English, Social Studies", gender: "F" },
+            { name: "Pallavi Umakant Ganatra", role: "Teacher", category: "High School Teachers", dept: "Languages", subjects: "English", gender: "F" },
+            { name: "Darshan Vilasrao Dudhe", role: "Teacher", category: "High School Teachers", dept: "Sports", subjects: "Sports, Statistics", gender: "M" },
+            { name: "Mehul Rajnikant Patel", role: "Upper Division Clerk", category: "Non-Teaching Staff", dept: "Administration", subjects: "N/A", gender: "M" },
+            { name: "Biraj Virendra Patel", role: "Lower Division Clerk", category: "Non-Teaching Staff", dept: "Administration", subjects: "N/A", gender: "M" },
+            { name: "Mukesh Bhaiyyalal Sahu", role: "Lab Assistant", category: "Non-Teaching Staff", dept: "Laboratory", subjects: "N/A", gender: "M" },
+            { name: "Ramprasad Buddhiram Thapa", role: "Office Attendant", category: "Non-Teaching Staff", dept: "Support Staff", subjects: "N/A", gender: "M" },
+            { name: "Dhaleshwar Jaysingh Bawangarh", role: "Office Attendant", category: "Non-Teaching Staff", dept: "Support Staff", subjects: "N/A", gender: "M" },
+            { name: "Seema Prashant Mahale", role: "Library Assistant", category: "Non-Teaching Staff", dept: "Library", subjects: "N/A", gender: "F" }
+        ];
+
+        const staffContainer = document.getElementById('staff-container');
+        const searchInput = document.getElementById('search-input');
+        const deptFilter = document.getElementById('dept-filter');
+        const countDisplay = document.getElementById('count-display');
+        const noResults = document.getElementById('no-results');
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        }
+
+        function getAvatarUrl(name, gender) {
+            const initials = getInitials(name);
+            const bgColor = gender === 'F' ? 'd81b60' : '1e3a8a';
+            return `https://placehold.co/200x200/${bgColor}/ffffff?text=${initials}`;
+        }
+
+        function initFilters() {
+            const departments = [...new Set(staffData.map(p => p.dept))].sort();
+            departments.forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept;
+                option.textContent = dept;
+                deptFilter.appendChild(option);
+            });
+        }
+
+        function renderStaff(data) {
+            staffContainer.innerHTML = '';
+            countDisplay.textContent = data.length;
+
+            if (data.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            const categoryOrder = ["Administration", "Junior College Teachers", "High School Teachers", "Non-Teaching Staff"];
+            const groupedData = data.reduce((acc, person) => {
+                if (!acc[person.category]) acc[person.category] = [];
+                acc[person.category].push(person);
+                return acc;
+            }, {});
+
+            categoryOrder.forEach(category => {
+                if (groupedData[category] && groupedData[category].length > 0) {
+                    const sectionWrapper = document.createElement('div');
+                    sectionWrapper.className = 'bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100';
+                    sectionWrapper.innerHTML = `
+                        <div class="mb-6 pb-2 border-b border-gray-100 flex items-center gap-3">
+                            <div class="h-8 w-1.5 bg-red-600 rounded-full"></div>
+                            <h2 class="text-2xl font-bold text-gray-900">${category}</h2>
+                            <span class="ml-auto bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded-full">${groupedData[category].length}</span>
+                        </div>
+                    `;
+                    const grid = document.createElement('div');
+                    grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
+
+                    groupedData[category].forEach(person => {
+                        const card = document.createElement('div');
+                        card.className = 'bg-slate-50 rounded-lg p-5 hover:bg-white hover:shadow-md transition duration-200 group flex items-start gap-4 border border-transparent hover:border-gray-100';
+                        const imgUrl = getAvatarUrl(person.name, person.gender);
+                        card.innerHTML = `
+                            <img src="${imgUrl}" alt="${person.name}" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm flex-shrink-0">
+                            <div class="flex-grow min-w-0">
+                                <h3 class="font-bold text-gray-900 text-sm leading-tight truncate" title="${person.name}">${person.name}</h3>
+                                <p class="text-xs font-bold text-red-600 uppercase tracking-wide mt-1 mb-1">${person.role}</p>
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    <span class="inline-block bg-white text-slate-500 text-[10px] px-2 py-0.5 rounded border border-gray-200 truncate max-w-full">${person.dept}</span>
+                                    ${person.subjects !== "N/A" ? `<span class="inline-block bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 rounded border border-blue-100 truncate max-w-full" title="${person.subjects}">${person.subjects.split(',')[0]}</span>` : ''}
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                    sectionWrapper.appendChild(grid);
+                    staffContainer.appendChild(sectionWrapper);
+                }
+            });
+        }
+
+        function filterStaff() {
+            const term = searchInput.value.toLowerCase();
+            const dept = deptFilter.value;
+            const filtered = staffData.filter(person => {
+                const matchesSearch = person.name.toLowerCase().includes(term) || person.role.toLowerCase().includes(term) || person.subjects.toLowerCase().includes(term);
+                const matchesDept = dept === 'All' || person.dept === dept;
+                return matchesSearch && matchesDept;
+            });
+            renderStaff(filtered);
+        }
+
+        function resetFilters() {
+            searchInput.value = '';
+            deptFilter.value = 'All';
+            renderStaff(staffData);
+        }
+
+        searchInput.addEventListener('input', filterStaff);
+        deptFilter.addEventListener('change', filterStaff);
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            slideInterval = setInterval(nextSlide, 5000);
+            initFilters();
+            renderStaff(staffData);
+        });
+
     </script>
 </body>
 </html>
